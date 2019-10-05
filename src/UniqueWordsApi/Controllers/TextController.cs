@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using UniqueWordsApi.Dtos;
-using UniqueWordsApi.Services;
+using UniqueWordsApi.WordServices;
 namespace UniqueWordsApi.Controllers
 {
     [Route("api/[controller]")]

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UniqueWordsApi.Dtos;
 using UniqueWordsApi.Extensions;
-namespace UniqueWordsApi.Services
+namespace UniqueWordsApi.WordServices
 {
     public class WordStoreService : IWordStoreService
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UniqueWordsApi.Models;
 
-namespace UniqueWordsApi.Services
+namespace UniqueWordsApi.WordServices
 {
     public class WordStoreDBContext : DbContext
     {

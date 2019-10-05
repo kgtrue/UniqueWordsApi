@@ -6,7 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using UniqueWordsApi.Services;
+using UniqueWordsApi.WordServices;
+using UniqueWordsApi.DatabaseSeeding;
 namespace UniqueWordsApi
 {
     public class Startup
@@ -21,18 +22,21 @@ namespace UniqueWordsApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var server = Configuration["SqlServerName"] ?? "192.168.1.137";
+            var port = Configuration["SqlServerPort"] ?? "1433";
+            var catalog = Configuration["SqlServerCatalog"] ?? "UniqueWordsApiDB";
+            //SA users should not be used it is here for testing purposes.
+            var user = Configuration["SqlServerUser"] ?? "SA";
+            var password = Configuration["SqlServerPassword"] ?? "KgtPass001";
+
             //register dbcontent with connection pool.
             var context = services.AddDbContextPool<WordStoreDBContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionStrings:UniqueWordsApiConnection"]);
+                options.UseSqlServer(string.Format(Configuration["ConnectionStringFormats:UniqueWordsApiConnectionFormat"], server, port, catalog, user, password));
 
             });
 
-
-            services.AddTransient(typeof(IWordStoreService), typeof( WordStoreService));
-
-
-
+            services.AddTransient(typeof(IWordStoreService), typeof(WordStoreService));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -49,11 +53,14 @@ namespace UniqueWordsApi
                     },
                 }); ;
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            PrepDB.PrepTestData(app.ApplicationServices);
+           
             app.UseRequestLocalization();
             app.UseSwagger();
             app.UseSwaggerUI(c =>

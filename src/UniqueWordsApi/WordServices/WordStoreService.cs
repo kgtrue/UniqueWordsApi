@@ -12,7 +12,7 @@ namespace UniqueWordsApi.WordServices
     {
         private WordStoreDBContext _context;
         //A list of chars used to clean words
-        private string charIgnoreList = "*.,!\\/¤$€%()={}+?';:|´`";
+        private const string charIgnoreList = "*.,!\\/¤$€%()={}+?';:|´`";
         private string[] split = { " ", "\r\n", "\r", "\n" };
         private readonly ILogger<WordStoreService> _logger;
 

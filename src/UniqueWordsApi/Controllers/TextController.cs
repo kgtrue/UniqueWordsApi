@@ -28,12 +28,33 @@ namespace UniqueWordsApi.Controllers
         public async Task<Result> Post(Request request)
         {
             try
-            {              
+            {
+                if(Request == null)
+                {
+                    HttpContext.Response.StatusCode = 204;
+                    return new Result();
+                }
+
+                if (string.IsNullOrWhiteSpace(request.text))
+                {
+                    HttpContext.Response.StatusCode = 204;
+                    return new Result();
+                }
+
+                HttpContext.Response.StatusCode = 200;
                 return await _wordStoreService.GetTextResultAsync(request);
             }
-            catch (WordStoreException ex)
+            catch (WordStoreException)
             {
-                return new  Result();
+                //status code is set to 404 an argument could be made that 500 is more accurate.
+                HttpContext.Response.StatusCode = 404;
+                return new Result();
+            }
+            catch (Exception)
+            {
+                //status code is set to 404 an argument could be made that 500 is more accurate.
+                HttpContext.Response.StatusCode = 500;
+                return new Result();
             }
         }
 

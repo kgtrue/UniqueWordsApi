@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using UniqueWordsApi.Dtos;
 using UniqueWordsApi.Services;
@@ -27,12 +28,12 @@ namespace UniqueWordsApi.Controllers
         public async Task<Result> Post(Request request)
         {
             try
-            {
+            {              
                 return await _wordStoreService.GetTextResultAsync(request);
             }
             catch (WordStoreException ex)
             {
-                return new Result();
+                return new  Result();
             }
         }
 

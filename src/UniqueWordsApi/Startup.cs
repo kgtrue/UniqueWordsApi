@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using UniqueWordsApi.Services;
@@ -20,12 +21,6 @@ namespace UniqueWordsApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Register dbcontext without connection pool
-            //var context = services.AddDbContext<WordStoreDBContext>(options =>
-            //   {
-            //       options.UseSqlServer(Configuration["ConnectionStrings:UniqueWordsApiConnection"]);
-            //   });
-
             //register dbcontent with connection pool.
             var context = services.AddDbContextPool<WordStoreDBContext>(options =>
             {
@@ -33,10 +28,8 @@ namespace UniqueWordsApi
 
             });
 
-            services.AddScoped<IWordStoreService>(f =>
-            {
-                return new WordStoreService(f.GetService<WordStoreDBContext>());
-            });
+
+            services.AddTransient(typeof(IWordStoreService), typeof( WordStoreService));
 
 
 
@@ -61,7 +54,7 @@ namespace UniqueWordsApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
+            app.UseRequestLocalization();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

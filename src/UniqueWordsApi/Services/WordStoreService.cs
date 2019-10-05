@@ -14,7 +14,7 @@ namespace UniqueWordsApi.Services
         //A list of chars used to clean words
         private string charIgnoreList = "*.,!\\/¤$€%()={}+?';:|´`";
         private string[] split = { " ", "\r\n", "\r", "\n" };
-        private ILogger<WordStoreService> _logger;
+        private readonly ILogger<WordStoreService> _logger;
 
         public WordStoreService(ILogger<WordStoreService> logger, WordStoreDBContext context)
         {
@@ -24,6 +24,7 @@ namespace UniqueWordsApi.Services
 
         public async Task<Result> GetTextResultAsync(Request request)
         {
+
             try
             {
                 //Creates a destinct list of words from the from the string from the request object instance. 

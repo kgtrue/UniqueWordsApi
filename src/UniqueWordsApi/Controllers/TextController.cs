@@ -29,7 +29,7 @@ namespace UniqueWordsApi.Controllers
         {
             try
             {
-                if(Request == null)
+                if(request == null)
                 {
                     HttpContext.Response.StatusCode = 204;
                     return new Result();

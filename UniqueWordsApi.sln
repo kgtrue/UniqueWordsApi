@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29324.140
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniqueWordsApi", "src\UniqueWordsApi\UniqueWordsApi.csproj", "{B3AD129E-16F7-416D-85A5-59ED29C400E6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "src\Test\Test.csproj", "{00D4F988-5DF8-4885-B252-860E6CB18B94}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3AD129E-16F7-416D-85A5-59ED29C400E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3AD129E-16F7-416D-85A5-59ED29C400E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3AD129E-16F7-416D-85A5-59ED29C400E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3AD129E-16F7-416D-85A5-59ED29C400E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00D4F988-5DF8-4885-B252-860E6CB18B94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00D4F988-5DF8-4885-B252-860E6CB18B94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00D4F988-5DF8-4885-B252-860E6CB18B94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00D4F988-5DF8-4885-B252-860E6CB18B94}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {18C622FC-EEE6-45EC-81BB-03ED9273B8D9}
+	EndGlobalSection
+EndGlobal

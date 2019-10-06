@@ -40,13 +40,22 @@ namespace UniqueWordsApi.WordServices
 
                 //Saves the added words and pushes changes to database.
                 await _context.SaveChangesAsync();
+                                
+                //A combined list af words created by joining distinctUniqueWords with WatchlistWords.
+                //Total count is the number of rows in the resulting join.
+                //If there a match in WatchlistWords the the word i selected. if there i no match then an empty string i set. 
+                var res = from recordedWords in existingRecordedWords
+                          join watchlistWords in _context.WatchlistWords on recordedWords.Word equals watchlistWords.Word into jointable
+                          from rwww in jointable.DefaultIfEmpty()
+                          select new
+                          {
+                              rw = recordedWords.Word,
+                              ww = rwww == null ? "" : rwww.Word
+                          };
 
-                //Contains all the words from the table WatchlistWords filterd by the distinct words in the wordlist. 
-                //This is used to get the list of WatchlistWords that wil returned in the result.
-                var existingWatchlistWords = _context.WatchlistWords.Where(x => words.Contains(x.Word));
 
-                // Return a result containing the cont of distinctUniqueWords in the text and a list of words from the Watchlist.
-                return new Result() { distinctUniqueWords = existingRecordedWords.Count(), watchlistWords = existingWatchlistWords.Select(ww => ww.Word) };
+                // Return a result containing the count of distinctUniqueWords in the text and a list of words from the Watchlist.
+                return new Result() { distinctUniqueWords = res.Count(), watchlistWords = res.Where(w=> !string.IsNullOrEmpty(w.ww)).Select(w => w.ww) };
             }
 
             catch (Exception ex)

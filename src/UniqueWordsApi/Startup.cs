@@ -35,8 +35,8 @@ namespace UniqueWordsApi
                 options.UseSqlServer(string.Format(Configuration["ConnectionStringFormats:UniqueWordsApiConnectionFormat"], server, port, catalog, user, password));
 
             });
-
-            services.AddTransient(typeof(IWordStoreService), typeof(WordStoreService));
+            //this loks beter than services.AddTransient(typeof(IWordStoreService),typeof(WordStoreService))
+            services.AddTransient<IWordStoreService, WordStoreService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

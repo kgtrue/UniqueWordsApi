@@ -29,7 +29,7 @@ namespace UniqueWordsApi.Controllers
         {
             try
             {
-                if(request == null)
+                if (request == null)
                 {
                     HttpContext.Response.StatusCode = 204;
                     return new Result();
@@ -58,5 +58,26 @@ namespace UniqueWordsApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Takes a json object containing a text an searches the text for unique words and matches in a whitelist.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>
+        /// Returns a result containing the number of unique words in the sentance, and a list of matching watchlistWords
+        /// </returns>
+        // POST: api/TextNew
+        [HttpPost("PostNew")]
+        public async Task<ActionResult<Result>> PostNew(Request request)
+        {
+            var result = await _wordStoreService.GetTextResultAsync(request);
+            if (result.distinctUniqueWords != 0)
+            {
+                return Ok(result);
+            }
+            return NotFound(Request);
+
+        }
     }
+
+
 }
